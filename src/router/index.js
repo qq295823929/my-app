@@ -1,15 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Registe from '@/components/Registe'
+import Home from '@/components/Home'                                            //首页
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
-  ]
+    mode: 'history',
+    routes: [
+        {path: '/', name: 'Home', component: Home},//首页
+        {path: '/registe', name: 'Registe', component: Registe},//注册
+    ]
 })

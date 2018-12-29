@@ -3,13 +3,31 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import "./assets/rem"
+import "./assets/common.css"
+import Axios from 'axios';
+import VueAxios from "vue-axios"
+import store from './store/index.js';
+import VueCookies from 'vue-cookies';
 
+
+Vue.use(VueCookies)
+import Mint from 'mint-ui';
+import 'mint-ui/lib/style.css'
+Vue.use(Mint);
+
+
+
+
+Vue.use(VueAxios,Axios)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  render: h => h(App),
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

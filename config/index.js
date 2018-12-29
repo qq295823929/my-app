@@ -10,7 +10,19 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+      proxyTable: {
+          /*
+         /anhao/v4/api/billboard/home?__t=1530586600026
+         https://m.maizuo.com/v4/api/billboard/home?__t=1530586600026
+         */
+          '/anhao': {
+              target: 'http://127.0.0.1',
+              changeOrigin: true,//源
+              pathRewrite: {
+                  '^/anhao': ''
+              }
+          }
+      },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
