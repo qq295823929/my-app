@@ -1,10 +1,14 @@
 <template>
     <div class="register">
-        <mt-field label="用户名"  placeholder="请输入用户名" v-model="username" state="usernameState"></mt-field>
+        <div class="type">
+            <div class="login">已有账号，登陆</div>
+        </div>
+        <mt-field label="用户名"  placeholder="请输入用户名" @change="checkUsernameIsExist" v-model="username" state="usernameState"></mt-field>
         <mt-field label="密码" placeholder="请输入您的密码" type="password" v-model="password"></mt-field>
 
         <div class="btn">
-            <mt-button @click="registe" type="primary" size="large">注册</mt-button>
+            <mt-button  @click="registe" type="primary" size="large">注册</mt-button>
+
         </div>
     </div>
 </template>
@@ -18,16 +22,19 @@
             return {
                 username: "",
                 usernameState:"",       //error,success,warning
+                usernameExist:"",           //用户名是否存在；
                 password: "",
                 passwordState:"",
-
             }
         },
         methods: {
+
             registe(){
+                var self=this;
+
                 if(!/^[a-zA-Z_-]{6,16}$/.test(this.username)){
                     Toast({
-                        message: '用户名应该是以字母,并且长度为6-16个字符',
+                        message: '用户名应该是全字母,并且长度为6-16个字符',
                         position: 'bottom',
                         duration: 1200
                     });
@@ -41,6 +48,16 @@
                     });
                     return false
                 }
+                alert(self.usernameExist)
+                if(!self.usernameExist){
+                    Toast({
+                        message: '用户名未通过检测',
+                        position: 'bottom',
+                        duration: 1200
+                    });
+                    return false
+                }
+
                 $.ajax({
                     url:"/anhao/user/userRegiste",
                     type:"post",
@@ -50,21 +67,46 @@
                     },
                     success:function (res) {
                         console.log(res);
+                        if(res.state==1){
+                            this.username=""
+                            this.password=""
+                            Toast({
+                                message: '恭喜您，注册成功现在为你跳转到首页',
+                                position: 'bottom',
+                                duration: 3000
+                            });
+                            setTimeout(function () {
+
+                            },1000)
+                        }
                     }
                 })
             },
-
-
-            first_link() {
+            checkUsernameIsExist(){
+                var self=this
                 $.ajax({
-                    url: "/anhao/user/userRegiste",
-                    data: {
-                        password: "password",
-                        username: "username"
+                    url:"/anhao/user/cheackUsernameIsExist",
+                    type:"post",
+                    data:{
+                        username:this.username,
                     },
-                    type: "post",
-                    success: function (res) {
+                    success:function (res) {
                         console.log(res);
+                        if(res.length==0){
+                            Toast({
+                                message: '该账号可以使用',
+                                position: 'bottom',
+                                duration: 3000
+                            });
+                            self.usernameExist=true;
+                        }else if(res.length>0){
+                            Toast({
+                                message: '该用户名已被注册',
+                                position: 'bottom',
+                                duration: 3000
+                            });
+                            self.usernameExist=false;
+                        }
                     }
                 })
             }
@@ -76,6 +118,13 @@
 <style scoped>
     .register {
         padding: 0.5rem;
+    }
+    .type{
+        text-align: right;
+    }
+    .type>div{
+        font-size: 0.3rem;
+        display: inline-block;
     }
 
     .btn {

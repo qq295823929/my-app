@@ -1,10 +1,8 @@
 
 var mysql      = require('mysql');
 const app = require('express');
-// const utility = require('utility'); //加密模块
+
 const router = app.Router();
-// const UserModel = require('../model.js');  //数据库结构
-// const User = UserModel.getModel('user');
 var querystring = require('querystring');
 
 console.log("厉害");
@@ -35,22 +33,62 @@ router.get('',function (req,res,next) {
 
 
 router.post('/userRegiste',function (req,res,next) {
-    var username=req.body.username;
-    var password=req.body.password;
-
-    connection.query("select * from `user` where password='123456'", function (error, results, fields) {
+    var name=req.body.username;
+    var pass=req.body.password;
+    let sql= `INSERT INTO user(username,password) VALUES ("${name}","${pass}");` ;
+    connection.query(sql, function (error, results, fields) {
         if (error) throw error;
-        res.send(results);
+        if(results.affectedRows==1){
+            res.send({
+                data:[],
+                msg:"注册成功",
+                state:1
+            })
+            connection.release(); // 释放连接池的连接
+        }else if(results.affectedRows!=1){
+            res.send({
+                data:[],
+                msg:"注册失败",
+                state:0
+            })
+            connection.close(); // 释放连接池的连接
+        }
     });
-
-
-
-
-
-    // res.send(req.body)
-
+});
+router.post('/cheackUsernameIsExist',function (req,res,next) {
+    var name=req.body.username;
+    let  sql=`SELECT * FROM user WHERE username="${name}"`;
+    connection.query(sql, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
 })
+router.post('/login',function (req,res,next) {
+    let name=req.body.username;
+    let pass=req.body.password;
+    let  sql=`SELECT username FROM user WHERE username="${name}" AND password="${pass}"`;
+    connection.query(sql, function (error, results, fields) {
+        if (error) throw error;
+        var obj={};
+        if(results.length===1){
+             obj={
+                data:results,
+                msg:"登陆成功",
+                state:1
+            }
+        }else if(results.length===0){
+             obj={
+                data:[],
+                msg:"账号或密码错误",
+                state:0
+            }
+        }
 
+
+
+        res.send(obj)
+    });
+})
 
 
 
