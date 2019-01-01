@@ -26,6 +26,7 @@
         },
         methods:{
             login(){
+                var self=this;
                 if(!/^[a-zA-Z_-]{6,16}$/.test(this.username)){
                     Toast({
                         message: '用户名应该是全,并且长度为6-16个字符',
@@ -48,6 +49,23 @@
                     data:{
                         username:this.username,
                         password:md5(this.password)
+                    },
+                    success:function (res) {
+                        if(res.state===1){
+                            Toast({
+                                message: '登陆成功',
+                                position: 'bottom',
+                                duration: 1200
+                            });
+                            self.$router.push({name:'Registe',});
+                        }else {
+                            Toast({
+                                message: '账号或密码错误',
+                                position: 'bottom',
+                                duration: 1200
+                            });
+                            self.password="";
+                        }
                     }
                 })
             }

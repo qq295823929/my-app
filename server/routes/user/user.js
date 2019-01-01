@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : '123456',
-    database : 'userinfo'
+    database : 'Userinfo'
 });
 
 connection.connect();
@@ -51,7 +51,7 @@ router.post('/userRegiste',function (req,res,next) {
                 msg:"注册失败",
                 state:0
             })
-            connection.close(); // 释放连接池的连接
+
         }
     });
 });
