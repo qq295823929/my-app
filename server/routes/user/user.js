@@ -74,7 +74,7 @@ router.post('/login',function (req,res,next) {
              obj={
                 data:results,
                 msg:"登陆成功",
-                state:1
+                state:11
             }
         }else if(results.length===0){
              obj={
