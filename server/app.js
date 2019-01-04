@@ -9,7 +9,7 @@ let fs = require('fs');
 var mysql      = require('mysql');
 var routes = require('./routes/route_app');
 var app = express();
-
+var session = require('express-session');
 
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -25,7 +25,12 @@ connection.connect();
 
 
 
-
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
@@ -62,6 +67,9 @@ app.get('/__webpack_hmr', function(req, res) {
     res.send('')
 })
 app.get('/', (req, res) => {
+
+
+
 
     connection.query("select * from `user` where password='123456'", function (error, results, fields) {
         if (error) throw error;

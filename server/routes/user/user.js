@@ -1,12 +1,15 @@
 
 var mysql      = require('mysql');
 const app = require('express');
-
 const router = app.Router();
 var querystring = require('querystring');
 
-console.log("厉害");
+var session = require('express-session');
 
+
+
+
+console.log("厉害");
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
@@ -51,7 +54,6 @@ router.post('/userRegiste',function (req,res,next) {
                 msg:"注册失败",
                 state:0
             })
-
         }
     });
 });
@@ -74,8 +76,16 @@ router.post('/login',function (req,res,next) {
              obj={
                 data:results,
                 msg:"登陆成功",
-                state:11
+                state:1
             }
+
+            req.session.data=results;
+            console.log(req.session.data);
+
+
+
+
+
         }else if(results.length===0){
              obj={
                 data:[],
