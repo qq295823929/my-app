@@ -47,7 +47,7 @@ router.post('/userRegiste',function (req,res,next) {
                 msg:"注册成功",
                 state:1
             })
-            connection.release(); // 释放连接池的连接
+            // connection.release(); // 释放连接池的连接
         }else if(results.affectedRows!=1){
             res.send({
                 data:[],

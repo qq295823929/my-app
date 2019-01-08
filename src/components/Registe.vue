@@ -1,14 +1,13 @@
 <template>
     <div class="register">
         <div class="type">
-            <div class="login">已有账号，登陆</div>
+            <router-link class="login" target="div" :to="{ name: 'Login'}">已有账号，登陆</router-link>
         </div>
         <mt-field label="用户名"  placeholder="请输入用户名" @change="checkUsernameIsExist" v-model="username" state="usernameState"></mt-field>
         <mt-field label="密码" placeholder="请输入您的密码" type="password" v-model="password"></mt-field>
 
         <div class="btn">
             <mt-button  @click="registe" type="primary" size="large">注册</mt-button>
-
         </div>
     </div>
 </template>
@@ -32,9 +31,9 @@
             registe(){
                 var self=this;
 
-                if(!/^[a-zA-Z_-]{6,16}$/.test(this.username)){
+                if(!/^[a-zA-Z][0-9a-zA-Z]{5,12}/.test(this.username)){
                     Toast({
-                        message: '用户名应该是全字母,并且长度为6-16个字符',
+                        message: '用户名应该是以首字母开头,并且长度为5-12个字符,无特殊字符',
                         position: 'bottom',
                         duration: 1200
                     });
@@ -76,7 +75,7 @@
                                 duration: 3000
                             });
                             setTimeout(function () {
-
+                                self.$router.push({name:'Home',});
                             },1000)
                         }
                     }
@@ -122,11 +121,10 @@
     .type{
         text-align: right;
     }
-    .type>div{
+    .type>div,.type>a{
         font-size: 0.3rem;
         display: inline-block;
     }
-
     .btn {
         padding: 1rem 0;
     }

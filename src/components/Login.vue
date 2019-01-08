@@ -1,14 +1,13 @@
 <template>
     <div class="login">
         <div class="type">
-            <div class="registe">注册</div>
+            <router-link class="registe" target="div" :to="{ name: 'Registe'}">注册</router-link>
         </div>
         <mt-field label="用户名"  placeholder="请输入用户名"  v-model="username" state="usernameState"></mt-field>
         <mt-field label="密码" placeholder="请输入您的密码" type="password" v-model="password"></mt-field>
 
         <div class="btn">
             <mt-button  @click="login" type="primary" size="large">立即登录</mt-button>
-
         </div>
     </div>
 </template>
@@ -57,7 +56,7 @@
                                 position: 'bottom',
                                 duration: 1200
                             });
-                            self.$router.push({name:'Registe',});
+                            self.$router.push({name:'Home',});
                         }else {
                             Toast({
                                 message: '账号或密码错误',
@@ -76,12 +75,15 @@
 <style scoped>
     .login {
     padding: 0.5rem;
-}
+    }
     .type{
         text-align: right;
     }
-.registe{
-    display: inline-block;
-    font-size: 0.28rem;
-}
+    .registe{
+        display: inline-block;
+        font-size: 0.28rem;
+    }
+    .btn {
+        padding: 1rem 0;
+    }
 </style>
