@@ -32,6 +32,10 @@ connection.connect();
 
 router.get('',function (req,res,next) {
     console.log(1112123121312123123);
+});
+
+router.get('/userinfo',function (req,res,next) {
+    
 })
 
 
@@ -78,14 +82,8 @@ router.post('/login',function (req,res,next) {
                 msg:"登陆成功",
                 state:1
             }
-
             req.session.data=results;
             console.log(req.session.data);
-
-
-
-
-
         }else if(results.length===0){
              obj={
                 data:[],
@@ -93,9 +91,6 @@ router.post('/login',function (req,res,next) {
                 state:0
             }
         }
-
-
-
         res.send(obj)
     });
 })

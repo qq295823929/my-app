@@ -67,10 +67,6 @@ app.get('/__webpack_hmr', function(req, res) {
     res.send('')
 })
 app.get('/', (req, res) => {
-
-
-
-
     connection.query("select * from `user` where password='123456'", function (error, results, fields) {
         if (error) throw error;
         res.send(results);

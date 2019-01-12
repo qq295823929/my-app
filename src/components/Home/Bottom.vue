@@ -20,7 +20,7 @@
                     {id:Math.random(),path:"/desk_top",title:"首页",class:"icon-qrcode_fill"},
                     {id:Math.random(),path:"/message",title:"消息",class:"icon-remind_fill"},
                     {id:Math.random(),path:"/work_index",title:"日程",class:"icon-activity_fill"},
-                    {id:Math.random(),path:"/user_info",title:"我的",class:"icon-renxiang"},
+                    {id:Math.random(),path:"/userinfo",title:"我的",class:"icon-renxiang"},
                 ]
             }
         }
