@@ -12,7 +12,7 @@ export default new Vuex.Store({
         },
         savePersonnalData(state,obj){
             state.personnalData=obj
-            console.log(state.personnalData);
+            console.log(state.personnalData);////
         }
     },
     actions:{
