@@ -22,15 +22,21 @@ connection.connect();
 
 
 
-
-
-
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
+var sessionOpts = {
+    // 设置密钥
+    secret: 'a cool secret',
+    // Forces the session to be saved back to the session store
+    resave: true,
+    // Forces a session that is "uninitialized" to be saved to the store.
     saveUninitialized: true,
-    cookie: { secure: false }
-}));
+    // 设置会话cookie名, 默认是connect.sid
+    key: 'myapp_sid',
+    // If secure is set to true, and you access your site over HTTP, the cookie will not be set.
+    cookie:  {maxAge: 60 * 1000 * 30}
+}
+
+app.use(session(sessionOpts))
+
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())

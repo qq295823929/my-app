@@ -6,7 +6,10 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  beforeCreate:function () {
+    console.log(111);
+  }
 }
 </script>
 

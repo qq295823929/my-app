@@ -35,7 +35,7 @@ router.get('',function (req,res,next) {
 });
 
 router.get('/userinfo',function (req,res,next) {
-    
+    res.send(req.session.data);
 })
 
 

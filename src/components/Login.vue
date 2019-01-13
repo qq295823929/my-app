@@ -56,7 +56,20 @@
                                 position: 'bottom',
                                 duration: 1200
                             });
-                            self.$router.push({name:'Home',});
+                            //获取用户信息;
+                            $.ajax({
+                                url:"/anhao/user/userinfo",
+                                type:"get",
+                                success:function (res) {
+                                    console.log(res);
+                                    self.$store.dispatch("getPersonnalData",res);
+                                    self.$store.dispatch("login",true);
+
+
+                                    self.$router.push({name:'Home',});
+                                }
+                            })
+
                         }else {
                             Toast({
                                 message: '账号或密码错误',

@@ -1,6 +1,6 @@
 <template>
     <div>
-        这是一个home
+        <div class=""></div>
         <Bottom></Bottom>
     </div>
 </template>
@@ -9,7 +9,10 @@
     import Bottom from "@/components/Home/Bottom"
     export default {
         name: "Home",
-        components: {Bottom}
+        components: {Bottom},
+        created:function () {
+                console.log(this.$store.state.isLogin);
+        }
     }
 </script>
 

@@ -10,10 +10,6 @@
                 <span class="trans">姓名</span>
                 <div id="my_name">{{this.$store.state.personnalData.USER_NAME}}</div>
             </div>
-            <div class="my_sex" style="border: none">
-                <span class="trans">性别</span>
-                <div id="my_sex">{{this.$store.state.personnalData.USER_SEX==0?"男":"女"}}</div>
-            </div>
         </div>
         <div class="box2">
             <div class="my_id my_info">
@@ -53,7 +49,7 @@
         methods:{
             findPersonalData(){
                 var self=this
-                var url="/anhao/user/getUserinfo"
+                var url="/anhao/user/userinfo";
                 // this.$http.post(url,).then(res=>{
                 //     var personnalData=res.data
                 //     personnalData.USER_IMG="http://www.hheducloud.gov.cn"+personnalData.USER_IMG
@@ -66,7 +62,6 @@
                     success:function (res) {
                         console.log(res);
                     }
-
                 })
             }
         }
