@@ -72,7 +72,7 @@ router.post('/cheackUsernameIsExist',function (req,res,next) {
 router.post('/login',function (req,res,next) {
     let name=req.body.username;
     let pass=req.body.password;
-    let  sql=`SELECT username FROM user WHERE username="${name}" AND password="${pass}"`;
+    let  sql=`SELECT username,id FROM user WHERE username="${name}" AND password="${pass}"`;
     connection.query(sql, function (error, results, fields) {
         if (error) throw error;
         var obj={};

@@ -4,6 +4,7 @@ import Registe from '@/components/Registe'
 import Home from '@/components/Home/Home'                                            //首页
 import Login from '@/components/Login'
 import Userinfo from "../components/Userinfo/Userinfo";       //登陆
+import MyBill from "@/components/ToolList/MyBill"              //我的账单
 
 Vue.use(Router)
 
@@ -14,5 +15,6 @@ export default new Router({
         {path: '/registe', name: 'Registe', component: Registe},//注册
         {path:'/login',name:'Login',component:Login},//登陆
         {path:'/userinfo',name:'Userinfo',component:Userinfo},//个人信息；
+        {path:'/mybill',name:'MyBill',component:MyBill},      //我的账单,
     ]
 })

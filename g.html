@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="http://www.hheducloud.gov.cn/js/jquery-1.12.2.min.js"></script>
+    <style>
+        #myCanvas{
+            height: 400px;
+            width: 300px;
+            /*background: black;*/
+            /*border-radius: 50%;*/
+            border: 1px solid #e5e5e5;
+        }
+    </style>
+</head>
+<body>
+
+
+<canvas id="myCanvas" height="500" width="300"></canvas>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+    var c=document.getElementById("myCanvas");
+    var ctx=c.getContext("2d");
+    ctx.beginPath();
+    ctx.lineWidth="5";
+    ctx.strokeStyle="red"; // 红色路径
+    ctx.moveTo(0,75);
+    ctx.lineTo(250,75);
+    ctx.stroke(); // 进行绘制
+
+    ctx.beginPath();
+    ctx.strokeStyle="blue"; // 蓝色路径
+    ctx.moveTo(50,0);
+    ctx.lineTo(150,130);
+    ctx.stroke(); // 进行绘制
+
+
+
+</script>
+</body>
+</html>
