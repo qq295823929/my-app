@@ -29,8 +29,9 @@ router.get('/getMyBill',function (req,res,next) {
     let sql=` select b.id as defineId,b.defineName,a.id,a.userId,IFNULL(a.money,0) money,a.createDate,c.username, `+
             ` (select IFNULL(sum(d.money),0) from user_bank_map d where d.defineId = a.defineId and d.userId = a.userId) totalMoney ` +
             ` from bank b `+
-            ` left join user_bank_map a on a.defineId = b.id and a.userId = ${userId} `+
+            ` left join user_bank_map a on a.defineId = b.id and a.userId =  b.userId `+
             ` left join user c on a.userId = c.id `+
+            ` where b.userId = ${userId} `+
             ` order by b.id `;
 
     connection.query(sql, function (error, results, fields) {

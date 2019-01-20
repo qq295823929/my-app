@@ -26,9 +26,9 @@
         methods:{
             login(){
                 var self=this;
-                if(!/^[a-zA-Z_-]{6,16}$/.test(this.username)){
+                if(!/^[a-zA-Z_0-9]{6,16}$/.test(this.username)){
                     Toast({
-                        message: '用户名应该是全,并且长度为6-16个字符',
+                        message: '用户名应该是全英文,并且长度为6-16个字符',
                         position: 'bottom',
                         duration: 1200
                     });

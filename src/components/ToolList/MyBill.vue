@@ -3,6 +3,7 @@
         <div class="box_title">
             <h3>我的账单</h3> <div class="new_bank" @click="addNewBank">新</div>
         </div>
+
         <div class="bill_lists">
             <div v-for="(item,id) in bill" :key="id" @click="addNewBill(item.difineId,item.name)" class="bill_list">
                 <div class="bill_title">
@@ -15,7 +16,9 @@
                     </div>
                 </div>
             </div>
+            <div class="no_lists_tips" v-if="bill.length==0">您还没有添加存钱的地方哦,点击右上角的添加吧</div>
         </div>
+
     </div>
 </template>
 
