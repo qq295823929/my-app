@@ -5,10 +5,10 @@
         </div>
 
         <div class="bill_lists">
-            <div v-for="(item,id) in bill" :key="id" @click="addNewBill(item.difineId,item.name)" class="bill_list">
+            <div v-for="(item,id) in bill" :key="id"  class="bill_list">
                 <div class="bill_title">
                     <h3>{{item.name}}</h3>
-                    <div class="new">+</div>
+                    <div class="new" @click="addNewBill(item.difineId,item.name)">+</div>
                 </div>
                 <div class="bill_info">
                     <div class="now_count">
@@ -112,52 +112,53 @@
         justify-content: space-between;
     }
     .new_bank{
-        height: 0.5rem;
-        width: 0.5rem;
+        height: 1rem;
+        width: 1rem;
         transition: all 0.2s ease;
         background: #f2f2f2;
         border-radius: 50%;
         text-align: center;
-        line-height: 0.5rem;
-        margin-right: 0.3rem;
-        margin-top: 0.2rem;
+        line-height: 1rem;
+        margin-right: 0.6rem;
+        margin-top: 0.4rem;
+        font-size: 0.6rem;
     }
     .new_bank:active{
         background: #e5e5e5;
         transform: scale(0.95);
     }
     .box_title>h3{
-        padding: 0.2rem 0.1rem;
-        font-size: 0.3rem;
+        padding: 0.4rem 0.2rem;
+        font-size: 0.6rem;
     }
     .bill_lists{
-        padding: 0 0.2rem;
+        padding: 0 0.4rem;
     }
     .bill_list{
         display: flex;
         flex-direction: column;
         border-bottom: 1px solid #e5e5e5;
-        padding-bottom: 0.01rem;
+        padding-bottom: 0.1rem;
     }
     .bill_title{
         display: flex;
         justify-content: space-between;
-        line-height: 0.24rem;
+        line-height: 0.48rem;
         padding: 0.2rem  0.3rem;
     }
     .bill_title h3{
         font-weight: 600;
-        font-size: 0.2rem;
-        line-height: 0.48rem;
+        font-size: 0.4rem;
+        line-height: 0.96rem;
     }
     .new{
-        width: 0.48rem;
-        height: 0.48rem;
+        width: 0.96rem;
+        height:0.96rem;
         text-align: center;
-        line-height: 0.48rem;
+        line-height: 0.96rem;
         transition: all 0.2s ease;
         border-radius: 3px;
-        font-size: 0.3rem;
+        font-size: 0.6rem;
     }
     .new:active{
         background: #e5e5e5;
@@ -165,13 +166,17 @@
     .bill_info{
         display: flex;
         justify-content: space-between;
-        padding: 0.4rem  0.3rem;
+        padding: 0.8rem  0.6rem;
         background: #d4e1ea;
         border-radius: 5px;
+        font-size: 0.45rem;
     }
 
     .new_bank_name{
         display: flex;
         justify-content: space-around;
+    }
+    .mint-msgbox-input input{
+        height: 0.45rem;
     }
 </style>
