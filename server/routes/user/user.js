@@ -9,7 +9,6 @@ var session = require('express-session');
 
 
 
-console.log("厉害");
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',

@@ -32,7 +32,7 @@ var sessionOpts = {
     // 设置会话cookie名, 默认是connect.sid
     key: 'myapp_sid',
     // If secure is set to true, and you access your site over HTTP, the cookie will not be set.
-    cookie:  {maxAge: 60 * 1000 * 30}
+    cookie:  {maxAge: 60 * 1000 * 60}
 }
 
 app.use(session(sessionOpts))
