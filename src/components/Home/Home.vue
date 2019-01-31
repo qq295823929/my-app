@@ -1,15 +1,17 @@
 <template>
     <div>
-        <div class=""></div>
-        <Bottom></Bottom>
+        <Tool></Tool>
+
     </div>
 </template>
 
 <script>
-    import Bottom from "@/components/Home/Bottom"
+    import Tool from "@/components/ToolList/ToolList"
     export default {
         name: "Home",
-        components: {Bottom},
+        components: {
+            Tool
+        },
         created:function () {
                 console.log(this.$store.state.isLogin);
         }

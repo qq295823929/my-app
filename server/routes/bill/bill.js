@@ -33,7 +33,6 @@ router.get('/getMyBill',function (req,res,next) {
             ` left join user c on a.userId = c.id `+
             ` where b.userId = ${userId} `+
             ` order by b.id `;
-
     connection.query(sql, function (error, results, fields) {
         if (error) throw error;
         console.log(results);
@@ -60,17 +59,37 @@ router.get('/getMyBill',function (req,res,next) {
                 list.push(obj)
             }
         }
-
-
-
-
-            res.send({
-                data:list,
-                msg:"查询成功",
-                state:1
-            })
+        res.send({
+            data:list,
+            msg:"查询成功",
+            state:1
+        })
     });
 });
+
+router.post('/getMyBillDetailById',function (req,res,next) {
+    // console.log(1112123121312123123);
+    let userId=req.session.data[0].id;
+    let defineId=req.body.id
+    // console.log(userId+"2222222222222222222222222222222");
+
+
+    // let sql=`select defineName,userId,sum(money) from user_bank_map where userId=${userId} group by userId,defineName`
+    let sql=` SELECT  *  from  user_bank_map  WHERE  userId= ${userId} AND  defineId= ${defineId}`;
+    connection.query(sql, function (error, results, fields) {
+        if (error) throw error;
+        console.log(results);
+        res.send({
+            data:results,
+            msg:"查询成功",
+            state:1
+        })
+    });
+});
+
+
+
+
 router.post('/addBank',function (req,res,next) {
     var userId=req.session.data[0].id;
     var bankName=req.body.bankName

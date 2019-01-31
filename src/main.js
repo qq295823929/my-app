@@ -9,6 +9,7 @@ import Axios from 'axios';
 import VueAxios from "vue-axios"
 import store from './store/index.js';
 import VueCookies from 'vue-cookies';
+import './assets/icon/iconfont.css'
 
 
 Vue.use(VueCookies)

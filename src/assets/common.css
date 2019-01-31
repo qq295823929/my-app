@@ -3,6 +3,7 @@ html,body{width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 0.32rem;
+    background: #ffffff;
 }
 *{
   padding: 0;

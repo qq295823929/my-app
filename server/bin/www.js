@@ -29,8 +29,8 @@ var server = http.createServer(app);
  */
 
 server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+// server.on('error', onError);
+// server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -84,11 +84,11 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
-    console.log("services running on port " + port)
-    var addr = server.address();
-    var bind = typeof addr === 'string'
-        ? 'pipe ' + addr
-        : 'port ' + addr.port;
-    debug('Listening on ' + bind);
-}
+// function onListening() {
+    // console.log("services running on port " + port)
+    // var addr = server.address();
+    // var bind = typeof addr === 'string'
+    //     ? 'pipe ' + addr
+    //     : 'port ' + addr.port;
+    // debug('Listening on ' + bind);
+// }

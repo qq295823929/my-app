@@ -28,7 +28,7 @@
                 var self=this;
                 if(!/^[a-zA-Z_0-9]{6,16}$/.test(this.username)){
                     Toast({
-                        message: '用户名应该是全英文,并且长度为6-16个字符',
+                        message: '用户名由英文开头,并且长度为6-16个字符',
                         position: 'bottom',
                         duration: 1200
                     });
@@ -64,8 +64,6 @@
                                     console.log(res);
                                     self.$store.dispatch("getPersonnalData",res);
                                     self.$store.dispatch("login",true);
-
-
                                     self.$router.push({name:'Home',});
                                 }
                             })

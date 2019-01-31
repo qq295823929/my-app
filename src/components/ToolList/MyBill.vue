@@ -10,11 +10,11 @@
                     <h3>{{item.name}}</h3>
                     <div class="new" @click="addNewBill(item.difineId,item.name)">+</div>
                 </div>
-                <div class="bill_info">
+                <router-link tag="a" class="bill_info" :to="{name:'MyBillDetail',query:{id:item.difineId}}">
                     <div class="now_count">
                         <span>余额:</span><span class="money_count">{{item.total}}</span>
                     </div>
-                </div>
+                </router-link>
             </div>
             <div class="no_lists_tips" v-if="bill.length==0">您还没有添加存钱的地方哦,点击右上角的添加吧</div>
         </div>
@@ -90,15 +90,14 @@
                             });
                             self.getMyBill();
                         }
-
                     })
-
                 });
             }
-
         },
         created(){
             this.getMyBill();
+
+
         }
     }
 </script>
@@ -171,7 +170,6 @@
         border-radius: 5px;
         font-size: 0.45rem;
     }
-
     .new_bank_name{
         display: flex;
         justify-content: space-around;

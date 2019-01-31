@@ -1,4 +1,4 @@
-const state = {
+var state = {
     isLogin:"",
     personnalData:{}
 };

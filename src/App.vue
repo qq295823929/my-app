@@ -1,14 +1,45 @@
 <template>
   <div id="app">
     <router-view/>
+    <Bottom></Bottom>
   </div>
 </template>
 
 <script>
+  import Bottom from "@/components/Home/Bottom"
 export default {
   name: 'App',
+  components: {
+    Bottom,
+  },
   beforeCreate:function () {
-    console.log(111);
+
+
+
+
+
+
+    window.addEventListener("beforeunload",()=>{
+      localStorage.setItem("data",JSON.stringify(this.$store.state))
+    })
+    // var self=this;
+    // setTimeout(function () {
+      // alert("页面卸载前,state为"+JSON.stringify(self.$store.state))
+    // },5000)
+//在页面加载时读取localStorage里的状态信息
+
+    // console.log(JSON.stringify(this.$store.state),1);
+    var data=localStorage.getItem("data");        //进来的时候获取已经有了的状态信息
+    // alert("拿到data"+data)
+    if(data){
+      this.$store.dispatch("updataInfo",data)
+    }
+
+
+
+
+
+    // localStorage.getItem("messageStore") && this.$store.replaceState(Object.assign(this.$store.state,JSON.parse(localStorage.getItem("messageStore"))));
   }
 }
 </script>

@@ -4,6 +4,9 @@ var actions={
     },
     getPersonnalData({commit},obj){
         commit("savePersonnalData",obj)
+    },
+    updataInfo({commit},obj){
+        commit("updataInfo",obj)
     }
 }
 
