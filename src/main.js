@@ -9,17 +9,21 @@ import Axios from 'axios';
 import VueAxios from "vue-axios"
 import store from './store/index.js';
 import VueCookies from 'vue-cookies';
+import VueSocketio from 'vue-socket.io';
+// import socketio from 'socket.io-client';
+
+
 import './assets/icon/iconfont.css'
 
 
-Vue.use(VueCookies)
+// console.log(socketio('anhao/'));
 import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'
 Vue.use(Mint);
+Vue.use(VueSocketio,('http://127.0.0.1/'),store);
 
 
-
-
+Vue.use(VueCookies)
 Vue.use(VueAxios,Axios)
 Vue.config.productionTip = false
 

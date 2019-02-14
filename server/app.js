@@ -59,7 +59,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/user',require('./routes/user/user.js'));
-app.use('/bill',require('./routes/bill/bill'))
+app.use('/bill',require('./routes/bill/bill'));
+app.use('/chat',require('./routes/chat/chat'));
 
 
 
