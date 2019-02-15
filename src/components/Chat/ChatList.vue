@@ -5,18 +5,18 @@
             <div class="menu_item">通讯录</div>
         </div>
         <ul class="chat_box">
-           <li class="chat_list">
+           <router-link tag="a" :to="{name:'ChatDetails',query:{toUser:22}}" class="chat_list">
                <div class="chat_info">
                    <div class="chat_con">
-                       <div class="user_name">王大锤子</div>
-                       <div class="msg">今天你会过来吗?</div>
+                       <div class="user_name">小猪猪</div>
+                       <div class="msg">老婆,请点这个</div>
                    </div>
                    <div class="chat_details">
                        <div class="time">14:20</div>
                        <div class="new_count">25</div>
                    </div>
                </div>
-           </li>
+           </router-link>
         </ul>
 
     </div>

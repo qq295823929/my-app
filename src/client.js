@@ -22,6 +22,8 @@ const CHAT={
     console.log('message')
       this.socket.on('to', function(obj) {
           console.log(JSON.stringify(obj))
+          CHAT.msgArr.push(obj)
+          console.log(CHAT.msgArr);
       })
   },
   init:function(username){
