@@ -20,16 +20,22 @@
         },
         methods:{
             talk:function () {
-                this.CHAT.submit({aaa:JSON.stringify(this.$store.state.isLogin)})
+                this.CHAT.submit({
+                    touser:"qq295823929",
+                    msg:"你好"
+                })
             }
         },
         created:function () {
-                console.log(this.$store.state.personnalData);
-                this.CHAT.init(this.$store.state.personnalData[0].username)
 
 
 
+            console.log(this.$store.state.personnalData);
+            this.CHAT.init(this.$store.state.personnalData[0].username)
 
+
+
+            CHAT.message()
 
         }
     }

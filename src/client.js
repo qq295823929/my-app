@@ -20,9 +20,8 @@ const CHAT={
   },
   message: function(username) {
     console.log('message')
-      this.socket.on('to' + username, function(obj) {
-        CHAT.msgArr.push(obj)
-        console.log('CHAT.msgArr', obj)
+      this.socket.on('to', function(obj) {
+          console.log(JSON.stringify(obj))
       })
   },
   init:function(username){

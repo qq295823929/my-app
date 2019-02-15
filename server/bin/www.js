@@ -44,12 +44,33 @@ io.on('connection', function(socket){
             onlineCount = onlineCount + 1
         }
         user = username
-        console.log(onlineUsers[username].id) //建立连接后 用户点击不同通讯录都是建立同样的socket对象
+        // console.log(onlineUsers[username].id) //建立连接后 用户点击不同通讯录都是建立同样的socket对象
         console.log('在线人数：',onlineCount)
         socket.on('sendMsg', function(obj) {
-
-
             console.log(obj);
+
+
+
+                var a='';
+                var b='';
+                for (key in onlineUsers) {
+
+                    if(a==''){
+
+                    }else {
+                        console.log("是不是同一个人:"+onlineUsers[key] == a+'');
+                    }
+                    a=onlineUsers[key]
+
+                    // console.log(key+"--------------------------------------");
+                    onlineUsers[key].emit('to',obj);
+                    // console.log(onlineUsers);
+                }
+
+
+
+
+
             // toUser = obj.toUser
             // fromUser = obj.fromUser
             // msg = obj.msg
@@ -77,13 +98,19 @@ io.on('connection', function(socket){
             //     // console.log('socket.id', socket.id)
             //     onlineUsers[fromUser].emit('to' + fromUser, obj)
             // }
-
-
         })
+
+        // console.log(onlineUsers);
         socket.on("disconnect", function () {
-            console.log("客户端断开连接.")
+            console.log(user+"------客户端断开连接.")
+            // onlineCount-=1;
+
+
+
+
+
             //遇到的坑 每次都要删除该socket连接 否则断开重连还是这个socket但是client端socket已经改变
-            delete onlineUsers[fromUser]
+            delete onlineUsers[user]
         })
     })
 

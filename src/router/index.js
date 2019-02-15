@@ -6,6 +6,7 @@ import Login from '@/components/Login'
 import Userinfo from "../components/Userinfo/Userinfo";       //登陆
 import MyBill from "@/components/ToolList/MyBill"              //我的账单
 import MyBillDetail from "@/components/ToolList/MyBillDetail"   //账单的详情
+import Message from "@/components/Chat/ChatList"                //消息列表以及通讯录
 import store from '@/store/index'
 Vue.use(Router)
 
@@ -22,6 +23,7 @@ Vue.use(Router)
         {path:'/userinfo',name:'Userinfo',component:Userinfo,meta: { navShow: true, cname: '一级页面' }},//个人信息；
         {path:'/mybill',name:'MyBill',component:MyBill},      //我的账单
         {path:'/mybilldetail',name:'MyBillDetail',component:MyBillDetail},//账单的详情;
+        {path:'/message',name:'Message',component:Message,meta: { navShow: true, cname: '一级页面' }}
     ]
 })
 router.beforeEach((to, from, next) => {
