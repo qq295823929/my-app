@@ -3,12 +3,19 @@ var mutations={
         state.isLogin = num;
     },
     savePersonnalData(state,obj){
+
+        console.log(obj)
+        console.log(1)
         state.personnalData=obj
+        for(let [key,val] of Object.entries(obj)){
+            state[key] = val;
+        }
         console.log(state.personnalData);////
     },
     updataInfo(state,obj){
         // console.log(obj);
         // state=
+        // alert(JSON.stringify(obj)+"11111111111111")
         for(let [key,val] of Object.entries(JSON.parse(obj))){
             state[key] = val;
         }

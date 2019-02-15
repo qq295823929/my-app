@@ -8,8 +8,8 @@
            <router-link tag="a" :to="{name:'ChatDetails',query:{toUser:22}}" class="chat_list">
                <div class="chat_info">
                    <div class="chat_con">
-                       <div class="user_name">小猪猪</div>
-                       <div class="msg">老婆,请点这个</div>
+                       <div class="user_name">talk</div>
+                       <div class="msg">请点这个聊天</div>
                    </div>
                    <div class="chat_details">
                        <div class="time">14:20</div>
