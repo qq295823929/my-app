@@ -29,8 +29,8 @@ const CHAT={
   init:function(username){
     //连接websocket后端服务器
     this.socket = io.connect({
-        server: 'http://127.0.0.1:80/',
-        socket: 'http://127.0.0.1:80'
+        server: 'http://www.gongzhigang.cn:80/',
+        socket: 'http://www.gongzhigang.cn:80'
     }.socket,{'force new connection': true})
     this.socket.on('open', function() {
       console.log('已连接')

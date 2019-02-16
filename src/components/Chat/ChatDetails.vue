@@ -8,7 +8,7 @@
         </ul>
 
         <div class="input">
-            <input id="msg" v-model="msg"/>
+            <input id="msg" v-model="msg" @keyup.13="submit"/>
             <div class="send" @click="submit">发送</div>
         </div>
     </div>
