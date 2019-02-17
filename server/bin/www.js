@@ -11,6 +11,10 @@ var http = require('http');
 var querystring = require("querystring");
 var port = 80;
 
+
+
+
+var mysql      = require('mysql');
 /**
  * Get port from environment and store in Express.
  */
@@ -31,6 +35,24 @@ var user = ''
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
+
+
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '123456',
+    database : 'Userinfo'
+});
+
+connection.connect();
+
+
+
+
+
+
+
+
 io.on('connection', function(socket){
     var toUser = {}
     var fromUser = {}
@@ -38,19 +60,27 @@ io.on('connection', function(socket){
     socket.emit('open')
     socket.on('addUser', function(username) {
 
+
+
         console.log(username + "连接进来了");
         if(!onlineUsers.hasOwnProperty(username)) {
-            onlineUsers[username] = socket
+            onlineUsers[username] = socket;
             onlineCount = onlineCount + 1
         }
-        user = username
+
+        getOnlinePerson().then(function (res) {
+            console.log(res);
+        })
+
+
+
+
+        // onlineUsers[username].emit("getPersonLists",lists)
+        user = username;
         // console.log(onlineUsers[username].id) //建立连接后 用户点击不同通讯录都是建立同样的socket对象
         console.log('在线人数：',onlineCount)
         socket.on('sendMsg', function(obj) {
             console.log(obj);
-
-
-
                 var a='';
                 var b='';
                 for (key in onlineUsers) {
@@ -63,7 +93,7 @@ io.on('connection', function(socket){
                     a=onlineUsers[key]
 
                     // console.log(key+"--------------------------------------");
-                    onlineUsers[key].emit('to',obj);
+                    onlineUsers[key].emit('to'+obj.touser,obj);
                     // console.log(onlineUsers);
                 }
 
@@ -177,11 +207,38 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-// function onListening() {
-    // console.log("services running on port " + port)
-    // var addr = server.address();
-    // var bind = typeof addr === 'string'
-    //     ? 'pipe ' + addr
-    //     : 'port ' + addr.port;
-    // debug('Listening on ' + bind);
-// }
+function getOnlinePerson() {
+    let lists=[];
+    var p=new Promise(function (resolve,reject) {
+        for(key in onlineUsers){
+            let sql=`SELECT username,id FROM user WHERE username="${key}"`;
+            connection.query(sql, function (error, results, fields) {
+
+                console.log(results);
+                if (error) throw error;
+                if(results.length>0){
+                    console.log(1);
+                    lists.push(JSON.parse(JSON.stringify(results))[0])
+
+                }else{
+
+                }
+            });
+        }
+
+        if(lists.length>0){
+            console.log("有点东西");
+            resolve(lists)
+
+        }else {
+            console.log("没点东西");
+            reject("111")
+        }
+
+
+    })
+
+
+
+    return p
+}
