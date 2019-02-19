@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <div id="app">
         <router-view/>
         <Bottom></Bottom>
@@ -18,7 +18,9 @@
             Bottom,
         },
         beforeCreate: function () {
-            window.addEventListener("beforeunload", () => {
+            var win=window
+
+            win.addEventListener("beforeunload", () => {
                 CHAT.logout()
                 localStorage.setItem("data", JSON.stringify(this.$store.state))
             })
@@ -29,6 +31,7 @@
 //在页面加载时读取localStorage里的状态信息
             // console.log(JSON.stringify(this.$store.state),1);
             var data = localStorage.getItem("data");        //进来的时候获取已经有了的状态信息
+            alert("已有的data是:"+data)
             // alert("拿到data"+data)
             if (data) {
                 this.$store.dispatch("updataInfo", data)
@@ -36,9 +39,11 @@
             // localStorage.getItem("messageStore") && this.$store.replaceState(Object.assign(this.$store.state,JSON.parse(localStorage.getItem("messageStore"))));
         },
         created:function () {
-            console.log(this.$store.state.personnalData);
-            CHAT.init(this.$store.state.personnalData[0].username)
-            CHAT.message()
+            // console.log(this.$store.state.personnalData);
+            // if(this.$store.state.personnalData[0].username){
+            //     CHAT.init(this.$store.state.personnalData[0].username)
+            //     CHAT.message(this.$store.state.personnalData[0].username)
+            // }
         }
     }
 </script>

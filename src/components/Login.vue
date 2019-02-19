@@ -43,7 +43,7 @@
                     return false
                 }
                 $.ajax({
-                    url:"/anhao/user/login",
+                    url:"http://www.gongzhigang.cn/user/login",
                     type:"post",
                     data:{
                         username:this.username,
@@ -58,13 +58,19 @@
                             });
                             //获取用户信息;
                             $.ajax({
-                                url:"/anhao/user/userinfo",
+                                url:"http://www.gongzhigang.cn/user/userinfo",
                                 type:"get",
                                 success:function (res) {
                                     console.log(res);
                                     self.$store.dispatch("getPersonnalData",res);
                                     self.$store.dispatch("login",true);
+
+
+
+
                                     self.$router.push({name:'Home',});
+
+
                                 }
                             })
 

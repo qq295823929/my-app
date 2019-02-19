@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
     <div class="bill_details">
         <h3>账单详情</h3>
@@ -32,7 +33,7 @@
                     alert(1)
                 }else {
                     $.ajax({
-                        url:"/anhao/bill/getMyBillDetailById",
+                        url:"http://www.gongzhigang.cn/bill/getMyBillDetailById",
                         type:"post",
                         data:{
                             id:self.defineId

@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-// import settings from './settings.js'
+import settings from './setting'
 const CHAT={
   msgObj:document.getElementsByClassName("body-wrapper")[0],
   username:null,
@@ -20,18 +20,24 @@ const CHAT={
   },
   message: function(username) {
     console.log('message')
-      this.socket.on('to', function(obj) {
+      this.socket.on('to'+username, function(obj) {
+          console.log(username + '--------');
           console.log(JSON.stringify(obj))
           CHAT.msgArr.push(obj)
           console.log(CHAT.msgArr);
       })
+
+      this.socket.on('getPersonLists', function(obj) {
+          console.log(obj);
+      })
+
+
+
+
   },
   init:function(username){
     //连接websocket后端服务器
-    this.socket = io.connect({
-        server: 'http://www.gongzhigang.cn:80/',
-        socket: 'http://www.gongzhigang.cn:80'
-    }.socket,{'force new connection': true})
+    this.socket = io.connect(settings.socket,{'force new connection': true})
     this.socket.on('open', function() {
       console.log('已连接')
     })

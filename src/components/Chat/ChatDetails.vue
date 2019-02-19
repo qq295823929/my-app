@@ -39,7 +39,7 @@
                 if(this.msg!=""){
                     this.CHAT.submit({
                         fromuser:this.$store.state.personnalData[0].username,
-                        touser: "群聊",
+                        touser: "qq1181568586",
                         msg:this.msg,
                         time:date.getHours()+":"+date.getMinutes()
                     })

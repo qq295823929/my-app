@@ -1,4 +1,7 @@
-export default socketAddress={
-    server: 'http://www.gongzhigang.cn:80/',
-    socket: 'http://www.gongzhigang.cn:80'
+var socketAddress={
+    server: 'http://www.gongzhigang:80/',
+    socket: 'http://www.gongzhigang:80'
 }
+
+
+export default socketAddress;

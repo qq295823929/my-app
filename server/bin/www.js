@@ -12,9 +12,7 @@ var querystring = require("querystring");
 var port = 80;
 
 
-
-
-var mysql      = require('mysql');
+var mysql = require('mysql');
 /**
  * Get port from environment and store in Express.
  */
@@ -36,41 +34,40 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 
 
-
 var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '123456',
-    database : 'Userinfo'
+    host: 'localhost',
+    user: 'root',
+    password: '123456',
+    database: 'Userinfo',
+    multipleStatements: true
 });
 
 connection.connect();
 
 
-
-
-
-
-
-
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
     var toUser = {}
     var fromUser = {}
     var msg = ''
     socket.emit('open')
-    socket.on('addUser', function(username) {
-
+    socket.on('addUser', function (username) {
 
 
         console.log(username + "连接进来了");
-        if(!onlineUsers.hasOwnProperty(username)) {
+        if (!onlineUsers.hasOwnProperty(username)) {
             onlineUsers[username] = socket;
             onlineCount = onlineCount + 1
         }
 
-        getOnlinePerson().then(function (res) {
-            console.log(res);
-        })
+
+        for (key in onlineUsers) {
+
+            getOnlinePerson(key);
+
+            // console.log(onlineUsers);
+        }
+
+
 
 
 
@@ -78,26 +75,11 @@ io.on('connection', function(socket){
         // onlineUsers[username].emit("getPersonLists",lists)
         user = username;
         // console.log(onlineUsers[username].id) //建立连接后 用户点击不同通讯录都是建立同样的socket对象
-        console.log('在线人数：',onlineCount)
-        socket.on('sendMsg', function(obj) {
-            console.log(obj);
-                var a='';
-                var b='';
-                for (key in onlineUsers) {
-
-                    if(a==''){
-
-                    }else {
-                        console.log("是不是同一个人:"+onlineUsers[key] == a+'');
-                    }
-                    a=onlineUsers[key]
-
-                    // console.log(key+"--------------------------------------");
-                    onlineUsers[key].emit('to'+obj.touser,obj);
-                    // console.log(onlineUsers);
-                }
-
-
+        console.log('在线人数：', onlineCount)
+        socket.on('sendMsg', function (obj) {
+            console.log(obj.touser);
+            onlineUsers[obj.touser].emit('to' + obj.touser, obj);
+            // console.log(onlineUsers);
 
 
 
@@ -132,11 +114,8 @@ io.on('connection', function(socket){
 
         // console.log(onlineUsers);
         socket.on("disconnect", function () {
-            console.log(user+"------客户端断开连接.")
-            // onlineCount-=1;
-
-
-
+            console.log(user + "------客户端断开连接.")
+            onlineCount-=1;
 
 
             //遇到的坑 每次都要删除该socket连接 否则断开重连还是这个socket但是client端socket已经改变
@@ -207,38 +186,23 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function getOnlinePerson() {
-    let lists=[];
-    var p=new Promise(function (resolve,reject) {
-        for(key in onlineUsers){
-            let sql=`SELECT username,id FROM user WHERE username="${key}"`;
-            connection.query(sql, function (error, results, fields) {
+function getOnlinePerson(username) {
+    let lists = [];
 
-                console.log(results);
-                if (error) throw error;
-                if(results.length>0){
-                    console.log(1);
-                    lists.push(JSON.parse(JSON.stringify(results))[0])
+    let str=''
 
-                }else{
+    for (key in onlineUsers) {
 
-                }
-            });
-        }
-
-        if(lists.length>0){
-            console.log("有点东西");
-            resolve(lists)
-
-        }else {
-            console.log("没点东西");
-            reject("111")
-        }
-
-
-    })
+        str+='"'+key+'"'+','
+    }
+    str=str.substr(0,str.length-1);
+    let sql = `SELECT username,id FROM user WHERE username in (${str})`;
+    connection.query(sql, function (error, results, fields) {
+        console.log(results);
+        if (error) throw error;
+        onlineUsers[username].emit("getPersonLists",results)
+    });
 
 
 
-    return p
 }

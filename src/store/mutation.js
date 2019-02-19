@@ -3,9 +3,6 @@ var mutations={
         state.isLogin = num;
     },
     savePersonnalData(state,obj){
-
-        console.log(obj)
-        console.log(1)
         state.personnalData=obj
         for(let [key,val] of Object.entries(obj)){
             state[key] = val;
@@ -21,7 +18,6 @@ var mutations={
         }
         console.log(state);
         // alert("更新state为"+JSON.stringify(state)+"11111111111111")
-
     }
 }
 
