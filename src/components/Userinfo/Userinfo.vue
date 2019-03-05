@@ -1,5 +1,6 @@
 <template>
     <div class="user_info box">
+        <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" @change="changeImage($event)"/>
         <div class="box1">
             <div class="my_photo">
                 <span class="trans">头像</span>
@@ -35,21 +36,43 @@
             <span class="trans">个性签名</span>
             <div id="sign_info" style="text-indent: 2em;">{{this.$store.state.personnalData.SIGN_INFO}}</div>
         </div>
-        <div class="box4">返回</div>
+        <div class="box4" @click="update">返回</div>
     </div>
 </template>
 <script>
+    import url from '../../url'
     export default {
         name: "User_info",
         data(){
             return {
+                userInfo:{
 
+                },
+                avatar: '',
+                file: '',
             }
         },
         methods:{
+            changeImage(e){
+                let self=this;
+                let file = e.target.files[0];
+                if(file) {
+                    this.file = file
+                    console.log(this.file)
+                    let reader = new FileReader()
+                    let that = this
+                    reader.readAsDataURL(file)
+                    reader.onload= function(e){
+                        // 这里的this 指向reader
+                        that.avatar = this.result
+                        console.log(self.file);
+                    }
+                }
+
+
+            },
             findPersonalData(){
                 var self=this
-                var url="/anhao/user/userinfo";
                 // this.$http.post(url,).then(res=>{
                 //     var personnalData=res.data
                 //     personnalData.USER_IMG="http://www.hheducloud.gov.cn"+personnalData.USER_IMG
@@ -57,10 +80,29 @@
                 //     self.$store.state.personnalData
                 // });
                 $.ajax({
-                    url:url,
+                    url:url+"/user/userinfo",
                     type:"get",
                     success:function (res) {
                         console.log(res);
+                    }
+                })
+            },
+            update(){
+                let data = new FormData()
+                data.append('img', this.file)
+
+                $.ajax({
+                    url : url+"/user/uploads",
+                    data : data,
+                    type : "POST",
+                    datatype : "json",
+                    cache : false,// 上传文件无需缓存
+                    processData : false,// 用于对data参数进行序列化处理 这里必须false
+                    contentType : false, // 必须
+                    success : function(res) {
+                        console.log(res);
+
+
                     }
                 })
             }

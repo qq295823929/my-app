@@ -25,6 +25,7 @@
 <script>
     import { MessageBox } from 'mint-ui';
     import { Toast } from 'mint-ui';
+    import url from '../../url'
     export default {
         name: "MyBill",
         data(){
@@ -38,7 +39,7 @@
             getMyBill:function () {
                 var self=this;
                 $.ajax({
-                    url:"http://www.gongzhigang.cn/bill/getMyBill",
+                    url:url+"/bill/getMyBill",
                     type:"get",
                     success:function (res) {
                         console.log(res);
@@ -51,7 +52,7 @@
                 MessageBox.prompt('请输入您想要添加的金额').then(({ value, action }) => {
                     // alert(value)
                     $.ajax({
-                        url:'http://www.gongzhigang.cn/bill/addBills',
+                        url:url+'/bill/addBills',
                         type:'post',
                         data:{
                             bankName:name,
@@ -76,7 +77,7 @@
                 MessageBox.prompt('请输入一个您的资金存放地').then(({ value, action }) => {
                     // alert(value)
                     $.ajax({
-                        url:'http://www.gongzhigang.cn/bill/addBank',
+                        url:url+'/bill/addBank',
                         type:'post',
                         data:{
                             bankName:value

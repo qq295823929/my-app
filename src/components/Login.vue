@@ -15,6 +15,7 @@
 <script>
     import { Toast } from 'mint-ui';
     import md5 from 'js-md5';
+    import url from '../url'
     export default {
         name: "Login",
         data(){
@@ -43,7 +44,7 @@
                     return false
                 }
                 $.ajax({
-                    url:"http://www.gongzhigang.cn/user/login",
+                    url:url+"/user/login",
                     type:"post",
                     data:{
                         username:this.username,
@@ -58,19 +59,14 @@
                             });
                             //获取用户信息;
                             $.ajax({
-                                url:"http://www.gongzhigang.cn/user/userinfo",
+                                url:url+"/user/userinfo",
                                 type:"get",
                                 success:function (res) {
                                     console.log(res);
                                     self.$store.dispatch("getPersonnalData",res);
                                     self.$store.dispatch("login",true);
 
-
-
-
                                     self.$router.push({name:'Home',});
-
-
                                 }
                             })
 

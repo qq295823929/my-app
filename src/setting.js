@@ -1,6 +1,6 @@
 var socketAddress={
-    server: 'http://www.gongzhigang:80/',
-    socket: 'http://www.gongzhigang:80'
+    server: 'http://127.0.0.1/',
+    socket: 'http://127.0.0.1'
 }
 
 

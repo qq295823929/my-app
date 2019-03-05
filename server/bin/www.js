@@ -78,7 +78,14 @@ io.on('connection', function (socket) {
         console.log('在线人数：', onlineCount)
         socket.on('sendMsg', function (obj) {
             console.log(obj.touser);
-            onlineUsers[obj.touser].emit('to' + obj.touser, obj);
+            if(onlineUsers[obj.touser]){           //如果被发送的人在线的话,就直接将信息发给他;
+                onlineUsers[obj.touser].emit('to' + obj.touser, obj)
+            }else {             //如果被发送的人不在线,那就要将这条消息作为未读消息,存在数据库;
+                console.log(11111);
+
+
+
+            }
             // console.log(onlineUsers);
 
 
@@ -125,6 +132,26 @@ io.on('connection', function (socket) {
 
 
 })
+
+
+
+// 404处理
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// 错误处理
+app.use(function (err, req, res, next) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+    res.render('error');
+});
+
+
+
 
 /**
  * Listen on provided port, on all network interfaces.

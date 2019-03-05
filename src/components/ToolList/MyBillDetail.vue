@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import url from '../../url'
     export default {
         name: "MyBillDetail",
         data(){
@@ -33,7 +34,7 @@
                     alert(1)
                 }else {
                     $.ajax({
-                        url:"http://www.gongzhigang.cn/bill/getMyBillDetailById",
+                        url:url+"/bill/getMyBillDetailById",
                         type:"post",
                         data:{
                             id:self.defineId

@@ -9,17 +9,17 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: './',
+    assetsPublicPath: '/',
       proxyTable: {
           /*
          /anhao/v4/api/billboard/home?__t=1530586600026
          https://m.maizuo.com/v4/api/billboard/home?__t=1530586600026
          */
-          'http://www.gongzhigang.cn': {
+          '/anhao': {
               target: 'http://127.0.0.1',
               changeOrigin: true,//源
               pathRewrite: {
-                  '^http://www.gongzhigang.cn': ''
+                  '^/anhao': ''
               }
           }
       },
@@ -55,7 +55,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: './',
+    assetsPublicPath: '/',
 
     /**
      * Source Maps

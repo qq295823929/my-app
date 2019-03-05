@@ -39,11 +39,11 @@
             // localStorage.getItem("messageStore") && this.$store.replaceState(Object.assign(this.$store.state,JSON.parse(localStorage.getItem("messageStore"))));
         },
         created:function () {
-            // console.log(this.$store.state.personnalData);
-            // if(this.$store.state.personnalData[0].username){
-            //     CHAT.init(this.$store.state.personnalData[0].username)
-            //     CHAT.message(this.$store.state.personnalData[0].username)
-            // }
+            console.log(this.$store.state.personnalData);
+            if(this.$store.state.personnalData[0].username){
+                CHAT.init(this.$store.state.personnalData[0].username)
+                CHAT.message(this.$store.state.personnalData[0].username)
+            }
         }
     }
 </script>
