@@ -17,7 +17,7 @@ Vue.use(Router)
 
 
  const router=new Router({
-    mode: 'hash',
+    mode: 'history',
     routes: [
         {path: '/', name: 'Home', component: Home,meta: { navShow: true, cname: '一级页面' }},//首页
         {path: '/registe', name: 'Registe', component: Registe},//注册

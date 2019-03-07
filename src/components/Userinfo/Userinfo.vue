@@ -1,20 +1,21 @@
 <template>
     <div class="user_info box">
-        <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" @change="changeImage($event)"/>
+
+        <cropper v-on:getImg="getChildImg"  @getHeaderImage="newHeaderImage"></cropper>
         <div class="box1">
             <div class="my_photo">
                 <span class="trans">头像</span>
-                <div class="photo"><img :src="this.$store.state.personnalData.USER_IMG" id="my_photo"></div>
+                <div class="photo"><img :src="userInfo.photo" id="my_photo"></div>
                 <input class="js_upFile" type="file" name="cover" accept="image/*" capture="camera" multiple style="display: none"/>
             </div>
             <div class="my_name my_info">
                 <span class="trans">姓名</span>
-                <div id="my_name">{{this.$store.state.personnalData.USER_NAME}}</div>
+                <div id="my_name">{{userInfo.photo}}</div>
             </div>
         </div>
         <div class="box2">
             <div class="my_id my_info">
-                <span class="trans">身份证号</span>
+                <span class="trans"  @click="update">身份证号</span>
                 <div id="my_id">{{this.$store.state.personnalData.USER_SID}}</div>
             </div>
             <div class="my_from my_info" style="border: none">
@@ -36,23 +37,64 @@
             <span class="trans">个性签名</span>
             <div id="sign_info" style="text-indent: 2em;">{{this.$store.state.personnalData.SIGN_INFO}}</div>
         </div>
-        <div class="box4" @click="update">返回</div>
+        <div class="box4">返回</div>
     </div>
 </template>
 <script>
+    import cropper from "@/components/Userinfo/cropper"
     import url from '../../url'
+    import { Toast } from 'mint-ui';
     export default {
         name: "User_info",
         data(){
             return {
                 userInfo:{
-
+                    phpto:""
                 },
                 avatar: '',
                 file: '',
+                headerImage:'',
+                newHeaderImage:''
             }
         },
+        components: {
+            cropper,
+        },
         methods:{
+            getChildImg:function (img) {
+                var self=this;
+                // console.log(img);
+                var arr = img.split(',');
+                var mime = arr[0].match(/:(.*?);/)[1];
+                var bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+                while(n--){
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                let file=new File([u8arr], self.userInfo.username, {type:mime});
+                let data = new FormData()
+                data.append('img', file)
+                $.ajax({
+                    url : url+"/user/uploads",
+                    data : data,
+                    type : "POST",
+                    datatype : "json",
+                    cache : false,// 上传文件无需缓存
+                    processData : false,// 用于对data参数进行序列化处理 这里必须false
+                    contentType : false, // 必须
+                    success : function(res) {
+                        console.log(res);
+                        if(res.state==1){
+                            Toast({
+                                message: '上传头像成功',
+                                position: 'bottom',
+                                duration: 1200
+                            });
+                            self.findPersonalData()
+                        }
+                    }
+                })
+            }
+            ,
             changeImage(e){
                 let self=this;
                 let file = e.target.files[0];
@@ -65,7 +107,7 @@
                     reader.onload= function(e){
                         // 这里的this 指向reader
                         that.avatar = this.result
-                        console.log(self.file);
+
                     }
                 }
 
@@ -83,32 +125,23 @@
                     url:url+"/user/userinfo",
                     type:"get",
                     success:function (res) {
-                        console.log(res);
+                        var data=res.data;
+                        data.photo=data.photo==null?("/photo/default.jpg"):(data.photo)
+                        self.userInfo=data;
+                        console.log(self.userInfo);
+                        self.$store.dispatch("getPersonnalData",res.data);
+                        self.$store.dispatch("login",true);
+
+
                     }
                 })
             },
             update(){
-                let data = new FormData()
-                data.append('img', this.file)
-
-                $.ajax({
-                    url : url+"/user/uploads",
-                    data : data,
-                    type : "POST",
-                    datatype : "json",
-                    cache : false,// 上传文件无需缓存
-                    processData : false,// 用于对data参数进行序列化处理 这里必须false
-                    contentType : false, // 必须
-                    success : function(res) {
-                        console.log(res);
-
-
-                    }
-                })
+                console.log(this.$store.state.personnalData.photo);
             }
         }
         ,
-        created(){
+        mounted(){
             this.findPersonalData();
         }
     }

@@ -41,9 +41,9 @@ app.use(session(sessionOpts))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 // app.engine('.html', ejs.__express);
-app.set('view engine', '');// app.set('view engine', 'ejs');
+// app.set('view engine', '');// app.set('view engine', 'ejs');
 // app.use(favicon(path.join(__dirname, 'favicon', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());

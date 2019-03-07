@@ -1,6 +1,6 @@
 var socketAddress={
-    server: 'http://127.0.0.1/',
-    socket: 'http://127.0.0.1'
+    server: 'http://192.168.0.102/',
+    socket: 'http://192.168.0.102'
 }
 
 

@@ -1,50 +1,99 @@
 <template>
     <div class="chat">
         <div class="menu_type">
-            <div class="menu_item">消息</div>
-            <div class="menu_item">通讯录</div>
+            <div class="menu_item" @click="changeType" :class="type==true?'active':''">消息</div>
+            <div class="menu_item" @click="changeType" :class="type==false?'active':''">在线</div>
         </div>
-        <ul class="chat_box">
-           <router-link tag="a" :to="{name:'ChatDetails',query:{toUser:22}}" class="chat_list">
+        <ul class="chat_box" v-show="type==true">
+           <router-link tag="a" v-for="(item,id) in recordList" :to="{name:'ChatDetails',query:{toUser:item.fromuser}}" :key="id" class="chat_list">
                <div class="chat_info">
                    <div class="chat_con">
-                       <div class="user_name">talk</div>
-                       <div class="msg">请点这个聊天</div>
+                       <div class="user_name">{{item.fromuser}}</div>
+                       <div class="msg">{{item.msg[item.msg.length-1].msg}}</div>
                    </div>
                    <div class="chat_details">
-                       <div class="time">14:20</div>
-                       <div class="new_count">25</div>
+                       <div class="time">{{item.msg[item.msg.length-1].time}}</div>
+                       <div class="new_count" v-show="item.new>0">{{item.new}}</div>
                    </div>
                </div>
            </router-link>
+        </ul>
+        <ul class="person_lists" v-show="type==false">
+            <router-link tag="a"   v-for="(item,id) in CHAT.personList" :key="id" :to="{name:'ChatDetails',query:{toUser:item.username}}" v-if="item.username!=$store.state.personnalData.username" class="person_list">
+                <div class="person_img">
+                    <img :src="item.photo"/>
+                </div>
+                <div class="person_info">
+                    <div class="person_con">
+                        <div class="user_name">{{item.username}}</div>
+                        <div class="user_sign"></div>
+                    </div>
+                    <!--<div class="chat_details">-->
+                        <!--<div class="time">14:20</div>-->
+                        <!--<div class="new_count">25</div>-->
+                    <!--</div>-->
+                </div>
+            </router-link>
         </ul>
 
     </div>
 </template>
 
 <script>
+    import CHAT from '../../client.js'
     export default {
         name: "ChatList",
         data:function () {
-            return {
-
+            return{
+                CHAT,
+                msg:"",
+                touser: '群聊',
+                type:true,
+                recordList:[]
             }
         },
         components:{
 
         },
         methods:{
+            changeType:function () {
+                this.type=!this.type;
+            }
 
         },
         created:function () {
 
-
-
+            CHAT.scrollToBottom();
 
 
 
 
         },
+        mounted:function () {
+            var self=this
+            // setTimeout(function () {
+            //     console.log(CHAT);
+            // },3000)
+        },
+        watch:{
+            CHAT: {
+                handler(newName, oldName) {
+                    // console.log(newName.msgData);
+                    var list=[];
+                    for(var key in newName.msgData){
+                        console.log(newName.msgData);
+                        list.push(newName.msgData[key])
+                    }
+                    this.recordList=list;
+                    // console.log("聊天记录变化啦");
+                    // console.log(list);
+
+                    // this.recordList=newName.msgData[this.touser]?newName.msgData[this.touser].msg:[];
+                },
+                deep: true,
+                immediate: true
+            }
+        }
 
     }
 </script>
@@ -68,11 +117,15 @@
         width: 100%;
     }
     .menu_type .menu_item{
-        width: 1rem;
+        width: 1.2rem;
         text-align: center;
         line-height: 1rem;
         font-weight: 600;
         font-size: 0.32rem;
+        transition: all 0.2s ease;
+    }
+    .menu_item.active{
+        color: #26a2ff;
     }
     .chat_box{
         height: 100%;
@@ -131,6 +184,34 @@
         width: 0.42rem;
         text-align: center;
     }
+
+    .person_list{
+        display: flex;
+        padding: 0.2rem;
+        border-bottom: 1px solid #e5e5e5;
+        transition: all 0.2s ease;
+    }
+    .person_list:active{
+        background: #f5f5f5;
+    }
+    .person_img{
+        height: 1rem;
+        width: 1rem;
+        font-size: 0;
+        overflow: hidden;
+        border-radius: 5px;
+
+    }
+    .person_img>img{
+        height: 100%;
+        width: 100%;
+    }
+    .person_info{
+        padding:0 0.2rem;
+        flex-grow: 2;
+    }
+
+
 
 
 

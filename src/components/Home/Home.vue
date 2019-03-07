@@ -31,7 +31,7 @@
 
 
             console.log(this.$store.state.personnalData);
-            this.CHAT.init(this.$store.state.personnalData[0].username)
+            this.CHAT.init(this.$store.state.personnalData.username)
 
 
 

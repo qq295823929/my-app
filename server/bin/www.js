@@ -51,19 +51,13 @@ io.on('connection', function (socket) {
     var msg = ''
     socket.emit('open')
     socket.on('addUser', function (username) {
-
-
         console.log(username + "连接进来了");
-        if (!onlineUsers.hasOwnProperty(username)) {
+        // if (!onlineUsers.hasOwnProperty(username)) {
             onlineUsers[username] = socket;
             onlineCount = onlineCount + 1
-        }
-
-
+        // }
         for (key in onlineUsers) {
-
             getOnlinePerson(key);
-
             // console.log(onlineUsers);
         }
 
@@ -77,19 +71,13 @@ io.on('connection', function (socket) {
         // console.log(onlineUsers[username].id) //建立连接后 用户点击不同通讯录都是建立同样的socket对象
         console.log('在线人数：', onlineCount)
         socket.on('sendMsg', function (obj) {
-            console.log(obj.touser);
             if(onlineUsers[obj.touser]){           //如果被发送的人在线的话,就直接将信息发给他;
+                console.log(obj);
                 onlineUsers[obj.touser].emit('to' + obj.touser, obj)
             }else {             //如果被发送的人不在线,那就要将这条消息作为未读消息,存在数据库;
                 console.log(11111);
-
-
-
             }
             // console.log(onlineUsers);
-
-
-
             // toUser = obj.toUser
             // fromUser = obj.fromUser
             // msg = obj.msg
@@ -120,13 +108,11 @@ io.on('connection', function (socket) {
         })
 
         // console.log(onlineUsers);
-        socket.on("disconnect", function () {
+        socket.on("disconnect", function (username) {
             console.log(user + "------客户端断开连接.")
             onlineCount-=1;
-
-
             //遇到的坑 每次都要删除该socket连接 否则断开重连还是这个socket但是client端socket已经改变
-            delete onlineUsers[user]
+            delete onlineUsers[username]
         })
     })
 
@@ -219,15 +205,16 @@ function getOnlinePerson(username) {
     let str=''
 
     for (key in onlineUsers) {
-
         str+='"'+key+'"'+','
     }
     str=str.substr(0,str.length-1);
-    let sql = `SELECT username,id FROM user WHERE username in (${str})`;
+    let sql = `SELECT username,id ,photo,sign,nickname,realname FROM user WHERE username in (${str})`;
     connection.query(sql, function (error, results, fields) {
         console.log(results);
         if (error) throw error;
         onlineUsers[username].emit("getPersonLists",results)
+
+        console.log("给" + username + "发在线人数");
     });
 
 

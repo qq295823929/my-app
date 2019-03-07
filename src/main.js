@@ -20,7 +20,7 @@ import './assets/icon/iconfont.css'
 import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'
 Vue.use(Mint);
-// Vue.use(VueSocketio,('http://www.gongzhigang.cn/'),store);
+// Vue.use(VueSocketio,('http://127.0.0.1/'));
 
 
 Vue.use(VueCookies)

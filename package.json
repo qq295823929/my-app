@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "cropperjs": "^1.4.3",
     "element-ui": "^2.4.11",
+    "exif-js": "^2.3.0",
     "jquery": "^3.3.1",
     "js-md5": "^0.7.3",
     "md5": "^2.2.1",

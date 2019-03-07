@@ -8,6 +8,7 @@
 <script>
     import Bottom from "@/components/Home/Bottom";
     import CHAT from './client.js'
+    import url from './url'
 
     export default {
         name: 'App',
@@ -18,10 +19,10 @@
             Bottom,
         },
         beforeCreate: function () {
-            var win=window
+            var win=window;
 
             win.addEventListener("beforeunload", () => {
-                CHAT.logout()
+                CHAT.logout(this.$store.state.personnalData.username);
                 localStorage.setItem("data", JSON.stringify(this.$store.state))
             })
             // var self=this;
@@ -31,18 +32,35 @@
 //在页面加载时读取localStorage里的状态信息
             // console.log(JSON.stringify(this.$store.state),1);
             var data = localStorage.getItem("data");        //进来的时候获取已经有了的状态信息
-            alert("已有的data是:"+data)
+            // alert("已有的data是:"+data)
             // alert("拿到data"+data)
+            console.log(JSON.parse(data));
             if (data) {
+
+                $.ajax({
+                    url:url+'/user/createSession',
+                    type:"post",
+                    data:{
+                        username:JSON.parse(data).personnalData.username
+                    },
+                    success:function (res) {
+
+                    }
+                })
                 this.$store.dispatch("updataInfo", data)
             }
+
+
+
+
             // localStorage.getItem("messageStore") && this.$store.replaceState(Object.assign(this.$store.state,JSON.parse(localStorage.getItem("messageStore"))));
         },
         created:function () {
-            console.log(this.$store.state.personnalData);
-            if(this.$store.state.personnalData[0].username){
-                CHAT.init(this.$store.state.personnalData[0].username)
-                CHAT.message(this.$store.state.personnalData[0].username)
+            // console.log(this.$store.state.personnalData.username+"111111111111111111111111111111");
+            if(this.$store.state.personnalData.username){
+                CHAT.init(this.$store.state.personnalData.username)
+                // alert(1)
+                CHAT.message(this.$store.state.personnalData.username)
             }
         }
     }

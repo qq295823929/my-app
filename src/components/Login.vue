@@ -63,7 +63,7 @@
                                 type:"get",
                                 success:function (res) {
                                     console.log(res);
-                                    self.$store.dispatch("getPersonnalData",res);
+                                    self.$store.dispatch("getPersonnalData",res.data);
                                     self.$store.dispatch("login",true);
 
                                     self.$router.push({name:'Home',});

@@ -15,12 +15,18 @@ module.exports = {
          /anhao/v4/api/billboard/home?__t=1530586600026
          https://m.maizuo.com/v4/api/billboard/home?__t=1530586600026
          */
-          '/anhao': {
+          '/anhao':{
               target: 'http://127.0.0.1',
               changeOrigin: true,//源
               pathRewrite: {
                   '^/anhao': ''
               }
+          }, '/photo':{
+              target: 'http://127.0.0.1',
+              changeOrigin: true,//源
+              // pathRewrite: {
+              //     '^/anhao': ''
+              // }
           }
       },
 

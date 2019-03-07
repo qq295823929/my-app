@@ -4,7 +4,7 @@ var actions={
     },
     getPersonnalData({commit},obj){
         commit("savePersonnalData",obj)
-        alert(JSON.stringify(obj)+"shoudao dengluyemian ")
+        // alert(JSON.stringify(obj)+"shoudao dengluyemian ")
     },
     updataInfo({commit},obj){
         commit("updataInfo",obj)
