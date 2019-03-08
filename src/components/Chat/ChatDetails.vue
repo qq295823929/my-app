@@ -76,10 +76,9 @@
                 CHAT.msgData[this.touser].new=0;
                 console.log("清零" + this.touser + "的最新聊天信息");
             }
-
-
-
-
+        },
+        updated:function(){
+            CHAT.scrollToBottom()
         },
         beforeDestroy:function () {
             CHAT.chatingPerson=''

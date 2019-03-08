@@ -39,7 +39,7 @@ app.use(session(sessionOpts))
 
 
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 // app.engine('.html', ejs.__express);
@@ -100,6 +100,7 @@ app.get('/', (req, res) => {
 // app.get('/movie/city', routes.city);
 // app.get('/movie/cinema_detail', routes.cinema_detail);
 
+//加载错误处理解决办法
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;

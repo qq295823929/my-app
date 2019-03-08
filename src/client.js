@@ -79,16 +79,12 @@ const CHAT = {
                 // console.log(formUser)
 
             }
-
-
-
             // console.log(self.$router);
             console.log(CHAT.msgData);
             // console.log(obj);
             // CHAT.msgArr.push(obj)
             // console.log(CHAT.msgData);
             CHAT.scrollToBottom()
-
         })
         this.socket.on('getPersonLists', function (obj) {
                 CHAT.personList=obj;

@@ -22,8 +22,10 @@ connection.connect();
 
 router.get('/getMyBill',function (req,res,next) {
     // console.log(1112123121312123123);
-    var userId=req.session.data[0].id;
-    console.log(userId);
+    console.log(req.session);
+    console.log(1)
+    var userId=req.session.data.id;
+
 
     // let sql=`select defineName,userId,sum(money) from user_bank_map where userId=${userId} group by userId,defineName`
     let sql=` select b.id as defineId,b.defineName,a.id,a.userId,IFNULL(a.money,0) money,a.createDate,c.username, `+
@@ -69,7 +71,7 @@ router.get('/getMyBill',function (req,res,next) {
 
 router.post('/getMyBillDetailById',function (req,res,next) {
     // console.log(1112123121312123123);
-    let userId=req.session.data[0].id;
+    let userId=req.session.data.id;
     let defineId=req.body.id
     // console.log(userId+"2222222222222222222222222222222");
 

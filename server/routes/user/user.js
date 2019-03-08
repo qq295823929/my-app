@@ -70,6 +70,7 @@ router.get('', function (req, res, next) {
 });
 
 router.get('/userinfo', function (req, res, next) {
+    console.log("userinfo的session是↓")
     console.log(req.session.data);
     if (req.session.data.username) {
         let sql = `SELECT username,id ,photo,sign,nickname,realname FROM user WHERE username="${req.session.data.username}"`;
