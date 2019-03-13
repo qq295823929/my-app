@@ -13,7 +13,9 @@
     export default {
         name: 'App',
         data: function () {
-            return CHAT
+            return {
+                CHAT
+            }
         },
         components: {
             Bottom,
@@ -36,7 +38,6 @@
             // alert("拿到data"+data)
             console.log(JSON.parse(data));
             if (data) {
-
                 $.ajax({
                     url:url+'/user/createSession',
                     type:"post",
@@ -51,17 +52,19 @@
             }
 
 
-
-
+            if(this.$store.state.personnalData.username){
+                CHAT.init(this.$store.state.personnalData.username);
+                // alert(1)
+                CHAT.message(this.$store.state.personnalData.username);
+            }
             // localStorage.getItem("messageStore") && this.$store.replaceState(Object.assign(this.$store.state,JSON.parse(localStorage.getItem("messageStore"))));
         },
         created:function () {
             // console.log(this.$store.state.personnalData.username+"111111111111111111111111111111");
-            if(this.$store.state.personnalData.username){
-                CHAT.init(this.$store.state.personnalData.username)
-                // alert(1)
-                CHAT.message(this.$store.state.personnalData.username)
-            }
+
+        },
+        mounted:function () {
+
         }
     }
 </script>

@@ -40,11 +40,6 @@ const CHAT = {
             console.log("给" + obj.touser + "加一条消息,但这条消息是我自己发的");
             CHAT.msgData[obj.touser].msg.push(obj)
         }
-
-
-
-
-
     },
     message: function (username) {
         var self=this
@@ -65,19 +60,13 @@ const CHAT = {
             }else {
                 console.log("给" + formUser + "加一条消息");
                 CHAT.msgData[formUser].msg.push(obj)
-
             }
-
-
             console.log("正在聊天的人是" + CHAT.chatingPerson + "这条消息是从" + formUser + "来的");
-
-
             if(CHAT.chatingPerson!=formUser){
                 CHAT.msgData[formUser].new+=1;
             }else{
                 // console.log(CHAT.chatingPerson);
                 // console.log(formUser)
-
             }
             // console.log(self.$router);
             console.log(CHAT.msgData);
@@ -85,7 +74,7 @@ const CHAT = {
             // CHAT.msgArr.push(obj)
             // console.log(CHAT.msgData);
             CHAT.scrollToBottom()
-        })
+        });
         this.socket.on('getPersonLists', function (obj) {
                 CHAT.personList=obj;
                 console.log(CHAT.personList);
@@ -93,6 +82,7 @@ const CHAT = {
 
     },
     init: function (username) {
+        // alert("調用了init"+username)
         //连接websocket后端服务器
         this.socket = io.connect(settings.socket, {'force new connection': true})
         this.socket.on('open', function () {
@@ -101,7 +91,6 @@ const CHAT = {
         this.socket.emit('addUser', username)
         // alert(username)
         // alert(this.socket.emit);
-
     }
 }
 export default CHAT
